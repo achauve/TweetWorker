@@ -33,6 +33,9 @@ app.configure('development', function(){
 app.get('/tweets', tweets.index);
 app.put('/tweets', tweets.update);
 
+app.get('/', function (req, res) {
+    res.json(200, {"message": "authenticated"});
+});
 
 
 //CORS middleware
@@ -46,13 +49,12 @@ function allowCrossDomain (req, res, next) {
 
 function passwordAuthenticate (req, res, next) {
     if (req.query && req.query.auth_token===Config.auth.token) {
-        console.log("authentified");
         next();
     }
     else {
-        console.log("auth error !");
+        console.log("auth error!");
         console.log(req.query);
-        res.send(401, "not authentified");
+        res.send(401, "not authenticated");
     }
 }
 
