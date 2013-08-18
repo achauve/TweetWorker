@@ -1,16 +1,9 @@
-
-
-
 //-------- twitter client config
 var Twit = require('twit');
 var Config = require('./config');
-
 var T = new Twit(Config.twitter);
 
-
-//------------ mongoose
-var mongoose = require('mongoose');
-
+// MongoDB model
 var Tweet = require('./models/tweet');
 
 
