@@ -20,7 +20,8 @@ var tweetSchema = new Schema({
     metadata: {
         read: { type: Boolean, default: false },
         interesting: { type: Boolean, default: false },
-        to_read_later: { type: Boolean, default: false }
+        to_read_later: { type: Boolean, default: false },
+        retweeted: { type: Boolean, default: false }
     }
 });
 

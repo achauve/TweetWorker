@@ -1,7 +1,4 @@
-//-------- twitter client config
-var Twit = require('twit');
-var Config = require('./config');
-var T = new Twit(Config.twitter);
+var TwitterService = require('./twitter');
 
 // MongoDB model
 var Tweet = require('./models/tweet');
@@ -34,7 +31,7 @@ function refreshTweets () {
 
             console.log("last tweet id = " + lastTweetId);
 
-            T.get('statuses/home_timeline', { since_id: lastTweetId, count: 200 }, function(err, reply) {
+            TwitterService.get('statuses/home_timeline', { since_id: lastTweetId, count: 200 }, function(err, reply) {
                 console.log('twitter api call');
                 if (err) {
                     console.log(err);
