@@ -64,7 +64,7 @@ exports.update = function(req, res) {
         if (to_retweet) {
             var tweetId = doc.twitterData.retweet ? doc.twitterData.retweet.id : doc.twitterData.id;
             console.log("trying to retweet tweet id=" + tweetId);
-            TwitterService.post('statuses/retweet/' + tweetId, function (err, reply) {
+            TwitterService.post('statuses/retweet/:id', { id: tweetId }, function (err, reply) {
                 if (err) {
                     handleInternalError(res, "Could not retweet on twitter api. " + err);
                     console.log(err);
