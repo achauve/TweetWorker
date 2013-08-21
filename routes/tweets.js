@@ -36,6 +36,21 @@ function handleInternalError(res, msg) {
     res.json(500, {message: msg});
 }
 
+exports.create = function(req, res) {
+    console.log("create new tweet");
+
+    var text = req.body.text;
+
+    TwitterService.post('statuses/update', { status: text }, function (err, reply) {
+        if (err) {
+            handleInternalError(res, "Could not post new tweet on twitter api. " + err);
+            console.log(err);
+            return;
+        }
+        console.log("posted new tweet successfully");
+    });
+};
+
 
 exports.update = function(req, res) {
     console.log("update tweet");

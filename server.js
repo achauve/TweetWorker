@@ -32,6 +32,7 @@ app.configure('development', function(){
 
 app.get('/tweets', tweets.index);
 app.put('/tweets', tweets.update);
+app.post('/tweets', tweets.create);
 
 app.get('/', function (req, res) {
     res.json(200, {"message": "authenticated"});
