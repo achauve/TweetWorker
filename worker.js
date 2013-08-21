@@ -48,7 +48,7 @@ function refreshTweets () {
 
                         var newTweet = new Tweet;
                         newTweet.twitterData = {
-                            id: tweet.id,
+                            id: tweet.id_str,
                             text: retweet ? retweet.text : tweet.text,
                             user: getUserFromTweet(tweet),
                             createdAt: tweet.created_at,
@@ -62,7 +62,7 @@ function refreshTweets () {
                             newTweet.twitterData.retweet = {
                                 createdAt: retweet.created_at,
                                 user: getUserFromTweet(retweet),
-                                id: retweet.id
+                                id: retweet.id_str
                             };
                         }
 
