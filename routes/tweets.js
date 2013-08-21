@@ -2,15 +2,19 @@ var Tweet = require('../models/tweet');
 var TwitterService = require('../twitter');
 
 exports.index = function(req, res) {
-    Tweet.find()
-        .sort('-twitterData.createdAt')
-        .exec(function (err, docs) {
-            if (err) {
-                res.json(500, { message: err });
-                return;
-            }
-            res.json(200, docs);
-        });
+    var query = Tweet.find().sort('-twitterData.createdAt');
+
+    if (req.query.read) {
+        query = query.where('metadata.read', req.query.read);
+    }
+
+    query.exec(function (err, docs) {
+        if (err) {
+            res.json(500, { message: err });
+            return;
+        }
+        res.json(200, docs);
+    });
 };
 
 
@@ -62,6 +66,7 @@ exports.update = function(req, res) {
             TwitterService.post('statuses/retweet/' + doc.twitterData.id, function (err, reply) {
                 if (err) {
                     handleInternalError(res, "Could not retweet on twitter api. " + err);
+                    console.log(err);
                     return;
                 }
                 console.log("retweeted tweet successfully");
