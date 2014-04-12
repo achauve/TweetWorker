@@ -2,6 +2,7 @@ require('newrelic');
 
 var express = require('express')
     , http = require('http')
+    , url = require('url')
     , mongoose = require('mongoose');
 
 var tweets = require('./routes/tweets')
@@ -37,7 +38,7 @@ app.put('/tweets', tweets.update);
 app.post('/tweets', tweets.create);
 
 app.get('/', function (req, res) {
-    res.json(200, {"message": "authenticated"});
+    res.json(200, {"message": "ok"});
 });
 
 
@@ -51,7 +52,9 @@ function allowCrossDomain (req, res, next) {
 };
 
 function passwordAuthenticate (req, res, next) {
-    if (req.query && req.query.auth_token===Config.auth.token) {
+    var path = url.parse(req.url).pathname;
+
+    if (path==='/' || (req.query && req.query.auth_token===Config.auth.token)) {
         next();
     }
     else {
