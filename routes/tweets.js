@@ -2,11 +2,15 @@ var Tweet = require('../models/tweet');
 var TwitterService = require('../twitter');
 
 exports.index = function(req, res) {
-    var query = Tweet.find().sort('-twitterData.createdAt');
+    var query = Tweet.find();
 
     if (req.query.read) {
         query = query.where('metadata.read', req.query.read);
     }
+
+    query = query
+        .sort('-twitterData.createdAt')
+        .limit(100);
 
     query.exec(function (err, docs) {
         if (err) {
